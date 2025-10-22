@@ -48,5 +48,40 @@ function row({ name, occupation, rate }) {
       `;
   return $row;
 }
+//Function for rows and return table body
+function rows() {
+  const $tbody = document.createElement("tbody");
+  const $freelancers = freelance.map(row);
+  $tbody.replaceChildren(...$freelancers);
+  return $tbody;
+}
+
+function AverageRate() {
+  const $rate = document.createElement("rate");
+  $rate.textContent = `Average rate is $${averageRate.toFixed(2)}.`;
+  return $rate;
+}
 
 // ** Render **
+function render() {
+  const $app = document.querySelector("#app");
+  // InnnerHTML with Table Elements
+  $app.innerHTML = `
+    <h1>Freelancer Forum</h1>
+    <AverageRate></AverageRate>
+    <table>
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Occupation</th>
+          <th>Rate</th>
+        </tr>
+      </thead>
+      <tbody id="row"></tbody>
+    </table>
+  `;
+  $app.querySelector("#row").replaceWith(rows());
+  $app.querySelector("AverageRate").replaceWith(AverageRate());
+}
+
+render();
